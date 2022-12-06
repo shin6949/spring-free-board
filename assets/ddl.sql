@@ -3,7 +3,8 @@ CREATE TABLE `user` (
     `username` varchar(30) NOT NULL UNIQUE COMMENT '로그인 할 때 사용할 것',
     `name` varchar(20) NOT NULL,
     `password` varchar(256) NOT NULL COMMENT 'SHA256',
-    `email` varchar(320) NOT NULL COMMENT '이메일 ID 부분은 최대 64자 + @ + 도메인은 255자까지 320자'
+    `email` varchar(320) NOT NULL COMMENT '이메일 ID 부분은 최대 64자 + @ + 도메인은 255자까지 320자',
+    `role` varchar(15) NOT NULL COMMENT 'For Spring Security'
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 
 CREATE TABLE `profile` (
