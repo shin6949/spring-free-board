@@ -1,0 +1,27 @@
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+
+  datasource:
+    # DB Config
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: localhost
+    #  url: ${DB_URL}
+    #  username: ${DB_USER}
+    username: root
+    password: test1234
+    #  password: ${DB_PASSWORD}
+
+    # hikari
+    hikari:
+      connection-timeout: 9000
+      idle-timeout: 20000
+      max-lifetime: 30000
+
+server:
+  servlet:
+    jsp:
+      init-parameters:
+        development: true

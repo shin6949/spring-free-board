@@ -1,25 +1,26 @@
 CREATE TABLE `user` (
     `internal_id` bigint(20) NOT NULL COMMENT '내부 분류 아이디' PRIMARY KEY auto_increment,
-    `username` varchar(50) NOT NULL COMMENT '로그인 할 때 사용할 것' UNIQUE,
+    `username` varchar(30) NOT NULL UNIQUE COMMENT '로그인 할 때 사용할 것',
     `name` varchar(20) NOT NULL,
-    `password` varchar(150) NOT NULL,
-    `email` varchar(150) unique
+    `password` varchar(256) NOT NULL COMMENT 'SHA256',
+    `email` varchar(320) NOT NULL COMMENT '이메일 ID 부분은 최대 64자 + @ + 도메인은 255자까지 320자'
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 
 CREATE TABLE `profile` (
     `id` bigint(20) NOT NULL PRIMARY KEY auto_increment,
     `user_id` bigint(20) NOT NULL,
-    `nickname` varchar(100) NOT NULL UNIQUE,
-    `profile_image` varchar(150) NULL DEFAULT NULL,
+    `nickname` varchar(15) NOT NULL UNIQUE COMMENT '닉네임 15자 제한',
+    `profile_image` varchar(36) NULL DEFAULT NULL COMMENT 'UUID는 36글자로 구성',
     FOREIGN KEY (`user_id`) REFERENCES `user` (`internal_id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 
 CREATE TABLE `article` (
     `id` bigint(20) NOT NULL PRIMARY KEY auto_increment,
     `author_id` bigint(20) NOT NULL,
-    `content` text NOT NULL,
+    `title` varchar(50) NOT NULL,
+    `content` TEXT NOT NULL,
     `created_at` datetime NOT NULL DEFAULT now(),
-    `view_count` int(9) NOT NULL DEFAULT 0 COMMENT '조회수',
+    `view_count` int(11) NOT NULL DEFAULT 0 COMMENT '조회수',
     FOREIGN KEY (`author_id`) REFERENCES `user` (`internal_id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 
@@ -45,8 +46,8 @@ CREATE TABLE `reply_index` (
 
 CREATE TABLE `attachment_index` (
     `id` bigint(20) NOT NULL PRIMARY KEY auto_increment,
-    `original_filename` varchar(500) NOT NULL,
-    `renamed_filename` varchar(500) NOT NULL UNIQUE,
+    `original_filename` varchar(256) NOT NULL COMMENT '파일 이름 최대 256자',
+    `renamed_filename` varchar(36) NOT NULL COMMENT 'UUID는 36글자로 구성',
     `article_id` bigint(20) NOT NULL,
     FOREIGN KEY (`article_id`) REFERENCES `article` (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
