@@ -71,7 +71,7 @@ CREATE TABLE `comment_like` (
 
 CREATE VIEW `article_view` AS (
     SELECT a.id AS `id`, a.content AS `content`, a.created_at AS `created_at`,
-           a.view_count AS `view_count`, a.author_id AS `author_id`, p.nickname AS `nickname`,
+           a.view_count AS `view_count`, a.author_id AS `author_id`, p.nickname AS `author_nickname`,
            (SELECT count(*) AS count FROM article_like WHERE article_like.article_id = a.id) AS `like_count`
     FROM article a
     JOIN profile p
@@ -80,7 +80,7 @@ CREATE VIEW `article_view` AS (
 
 CREATE VIEW `comment_view` AS (
     SELECT c.id AS `id`, c.content AS `content`, c.is_reply AS `is_reply`,
-           c.created_at AS `created_at`, p.nickname AS 'nickname',
+           c.created_at AS `created_at`, c.author_id AS `author_id`, p.nickname AS `author_nickname`,
            (SELECT count(*) FROM comment_like WHERE comment_like.comment_id = c.id) AS `like_count`
     FROM comment c
     JOIN profile p

@@ -15,21 +15,22 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests((authz) -> authz
-                        .anyRequest().authenticated()
-                )
+                .authorizeHttpRequests()
+                .antMatchers("/main", "/login", "/resources/**","/").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .usernameParameter("inputId")
+                .passwordParameter("inputPassword")
+                .loginProcessingUrl("/main")
+                .and()
                 .httpBasic(withDefaults());
         return http.build();
     }
 
     @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring()
-                .antMatchers("/main", "/images", "/js", "/css");
-    }
-
-    @Bean
-    PasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }

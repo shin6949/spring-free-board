@@ -25,3 +25,6 @@ server:
     jsp:
       init-parameters:
         development: true
+
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/**/**.xml

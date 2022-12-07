@@ -4,6 +4,11 @@
 
 <!DOCTYPE html>
 <html lang="ko">
+<head>
+    <title>로그인</title>
+    <jsp:include page="/WEB-INF/jsp/include/bootstrap.jsp"/>
+</head>
+
 <body>
 
 <div class="container">
