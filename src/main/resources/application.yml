@@ -7,7 +7,7 @@ spring:
   datasource:
     # DB Config
     driver-class-name: org.mariadb.jdbc.Driver
-    url: localhost
+    url: jdbc:mariadb://localhost:3306/free_board
     #  url: ${DB_URL}
     #  username: ${DB_USER}
     username: root
@@ -28,3 +28,5 @@ server:
 
 mybatis:
   mapper-locations: classpath:mybatis/mapper/**/**.xml
+  configuration:
+    map-underscore-to-camel-case: true

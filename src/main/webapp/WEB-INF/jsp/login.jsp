@@ -36,7 +36,7 @@
 </head>
 <body class="text-center">
 
-<form class="form-signin">
+<form class="form-signin" action="${pageContext.request.contextPath}/login_process" method="post">
     <img class="mb-4" src="https://overlay.cocoblue.me/images/cocoblue.jpg" alt="" width="72" height="72">
     <h1 class="h3 mb-3 font-weight-normal">로그인</h1>
     <label for="inputId" class="sr-only">아이디</label>
@@ -47,8 +47,5 @@
     <button class="btn btn-lg btn-primary btn-block" type="submit">로그인</button>
     <p class="mt-5 mb-3 text-muted">&copy; 2022-2023</p>
 </form>
-
-
-
 </body>
 </html>
