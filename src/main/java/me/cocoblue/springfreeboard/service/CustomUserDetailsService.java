@@ -23,7 +23,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        log.info("CALLED loadUserByUsername");
         // DB에서 Account 객체 조회
         final UserDTO userDTO = userMapper.findByUsername(username);
 
