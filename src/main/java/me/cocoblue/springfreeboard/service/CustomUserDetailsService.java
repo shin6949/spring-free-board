@@ -3,7 +3,7 @@ package me.cocoblue.springfreeboard.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import me.cocoblue.springfreeboard.dto.UserContext;
-import me.cocoblue.springfreeboard.dto.UserDTO;
+import me.cocoblue.springfreeboard.dto.User;
 import me.cocoblue.springfreeboard.mapper.UserMapper;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -24,17 +24,17 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // DB에서 Account 객체 조회
-        final UserDTO userDTO = userMapper.findByUsername(username);
+        final User user = userMapper.findByUsername(username);
 
-        if (userDTO == null) {
+        if (user == null) {
             throw new UsernameNotFoundException("UsernameNotFoundException");
         }
 
         // 권한 정보 등록
         List<GrantedAuthority> roles = new ArrayList<>();
-        roles.add(new SimpleGrantedAuthority(userDTO.getRole()));
+        roles.add(new SimpleGrantedAuthority(user.getRole()));
 
         // AccountContext 생성자로 UserDetails 타입 생성
-        return new UserContext(userDTO, roles);
+        return new UserContext(user, roles);
     }
 }

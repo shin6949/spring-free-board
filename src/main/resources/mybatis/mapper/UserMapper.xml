@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="me.cocoblue.springfreeboard.mapper.UserMapper">
-    <select id="findByUsername" parameterType="String" resultType="me.cocoblue.springfreeboard.dto.UserDTO">
+    <select id="findByUsername" parameterType="String" resultType="me.cocoblue.springfreeboard.dto.User">
         SELECT *
         FROM user
         WHERE username = #{username}
