@@ -25,140 +25,84 @@
                     <div class="form-label-group position-relative">
                         <input type="text" class="form-control" name="name" id="name" placeholder="이름" required>
                         <label for="name">이름</label>
-                        <small class="ml-1 form-text text-muted">이름은 공백 없이 한글 2~10자까지 가능합니다.</small>
+                        <small class="ml-1 form-text text-muted">이름은 공백 없이 한글 2~10자로 지정할 수 있습니다.</small>
                         <div class="invalid-tooltip">
-                            이름은 필수 항목 입니다.
+                            이름 규칙을 지켜주세요.
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-md-7  mb-3">
+                <div class="col-md-7 mb-3">
                     <div class="form-label-group position-relative">
-                        <input type="text" class="form-control" id="username" placeholder="아이디" required>
+                        <input type="text" class="form-control" name="username" id="username" placeholder="아이디" required>
                         <label for="username">아이디</label>
-                        <small class="ml-1 form-text text-muted">아이디는 공백 없이 영문 소문자, 숫자 조합 4~30자까지 가능합니다.</small>
+                        <small class="ml-1 form-text text-muted">아이디는 공백 없이 영문 소문자, 숫자 조합 4~30자로 지정할 수 있습니다.</small>
                         <div class="invalid-tooltip" style="width: 100%;">
-                            Your username is required.
+                            아이디 규칙을 지켜주세요.
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="mb-3">
-                <label for="email">Email <span class="text-muted">(Optional)</span></label>
-                <input type="email" class="form-control" id="email" placeholder="you@example.com">
-                <div class="invalid-feedback">
-                    Please enter a valid email address for shipping updates.
+                <div class="form-label-group position-relative">
+                    <input type="email" class="form-control" name="email" id="email" placeholder="이메일">
+                    <label for="email">이메일</label>
+                    <small class="ml-1 form-text text-muted">이메일은 아이디/비밀번호 찾기에 사용됩니다. 사용하는 이메일로 적어주세요.</small>
                 </div>
             </div>
 
             <div class="mb-3">
-                <label for="address">Address</label>
-                <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
-                <div class="invalid-feedback">
-                    Please enter your shipping address.
+                <div class="form-label-group position-relative">
+                    <input type="password" class="form-control" name="password" id="password" placeholder="비밀번호">
+                    <label for="password">비밀번호</label>
+                    <small class="ml-1 form-text text-muted">비밀번호는 공백 제외 영문, 숫자, 특수문자 조합으로 8~30자로 지정할 수 있습니다.</small>
+                    <div class="invalid-feedback">
+                        입력한 비밀번호가 같지 않습니다.
+                    </div>
                 </div>
             </div>
 
             <div class="mb-3">
-                <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
-                <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
+                <div class="form-label-group position-relative">
+                    <input type="password" class="form-control" name="password-re"
+                           id="password-re" placeholder="비밀번호 확인">
+                    <label for="password-re">비밀번호 확인</label>
+                    <small class="ml-1 form-text text-muted">위에 기재한 비밀번호와 동일하게 입력하세요.</small>
+                    <div class="invalid-feedback">
+                        입력한 비밀번호가 같지 않습니다.
+                    </div>
+                </div>
             </div>
 
-            <div class="row">
-                <div class="col-md-5 mb-3">
-                    <label for="country">Country</label>
-                    <select class="custom-select d-block w-100" id="country" required>
-                        <option value="">Choose...</option>
-                        <option>United States</option>
-                    </select>
-                    <div class="invalid-feedback">
-                        Please select a valid country.
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label for="state">State</label>
-                    <select class="custom-select d-block w-100" id="state" required>
-                        <option value="">Choose...</option>
-                        <option>California</option>
-                    </select>
-                    <div class="invalid-feedback">
-                        Please provide a valid state.
-                    </div>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <label for="zip">Zip</label>
-                    <input type="text" class="form-control" id="zip" placeholder="" required>
-                    <div class="invalid-feedback">
-                        Zip code required.
-                    </div>
-                </div>
-            </div>
             <hr class="mb-4">
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="same-address">
-                <label class="custom-control-label" for="same-address">Shipping address is the same as my billing address</label>
+            <div>
+                <button class="btn btn-primary btn-lg" type="submit">회원 가입</button>
+                <button class="btn btn-secondary btn-lg" data-toggle="modal" data-target="#cancelModal">취소</button>
             </div>
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="save-info">
-                <label class="custom-control-label" for="save-info">Save this information for next time</label>
-            </div>
-            <hr class="mb-4">
-
-            <h4 class="mb-3">Payment</h4>
-
-            <div class="d-block my-3">
-                <div class="custom-control custom-radio">
-                    <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
-                    <label class="custom-control-label" for="credit">Credit card</label>
-                </div>
-                <div class="custom-control custom-radio">
-                    <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
-                    <label class="custom-control-label" for="debit">Debit card</label>
-                </div>
-                <div class="custom-control custom-radio">
-                    <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
-                    <label class="custom-control-label" for="paypal">PayPal</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label for="cc-name">Name on card</label>
-                    <input type="text" class="form-control" id="cc-name" placeholder="" required>
-                    <small class="text-muted">Full name as displayed on card</small>
-                    <div class="invalid-feedback">
-                        Name on card is required
-                    </div>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="cc-number">Credit card number</label>
-                    <input type="text" class="form-control" id="cc-number" placeholder="" required>
-                    <div class="invalid-feedback">
-                        Credit card number is required
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3 mb-3">
-                    <label for="cc-expiration">Expiration</label>
-                    <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
-                    <div class="invalid-feedback">
-                        Expiration date required
-                    </div>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <label for="cc-cvv">CVV</label>
-                    <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
-                    <div class="invalid-feedback">
-                        Security code required
-                    </div>
-                </div>
-            </div>
-            <hr class="mb-4">
-            <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
         </form:form>
+    </div>
+</div>
+
+<div class="container">
+    <!-- Modal -->
+    <div style="margin-top: 20%" class="modal fade" id="cancelModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">경고</h4>
+                </div>
+                <div class="modal-body">
+                    취소하면 입력한 데이터를 모두 잃습니다. 계속 하시겠습니까?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">계속 진행</button>
+                    <a href="/main"><button type="button" class="btn btn-danger">취소하고 이동</button></a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 </body>
