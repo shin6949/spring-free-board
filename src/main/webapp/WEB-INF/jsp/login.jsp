@@ -17,6 +17,7 @@
     <link href="${pageContext.request.contextPath}/static/css/login.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/static/css/common/floating_labels.css" rel="stylesheet">
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/AccountValidation.js"></script>
+    <sec:csrfMetaTags/>
 </head>
 <body>
 <jsp:include page="/WEB-INF/jsp/include/header.jsp"/>

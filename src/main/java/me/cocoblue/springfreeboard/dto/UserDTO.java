@@ -8,6 +8,8 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class UserDTO extends User implements Serializable {
+    private String nickname;
+
     public UserDTO(long internalId, String username, String name, String password, String email, String role) {
         super(internalId, username, name, null, email, role);
     }
