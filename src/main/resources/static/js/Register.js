@@ -83,14 +83,15 @@ const checkPasswordRe = (inputElement) => {
     inputElement.classList.remove('is-valid');
     inputElement.value = inputElement.value.replace(/\s/gi, "");
 
-    const originalPassword = document.getElementById('password').value;
+    const originalPassword = document.getElementById('inputPassword').value;
 
     if(inputElement.value !== originalPassword) {
         inputElement.className += ' is-invalid';
         return false;
+    } else {
+        inputElement.className += ' is-valid';
+        return true;
     }
-
-    return true;
 }
 
 // 마지막으로 FE에서 체크
