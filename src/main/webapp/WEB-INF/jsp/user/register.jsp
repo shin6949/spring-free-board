@@ -59,7 +59,7 @@
                 <div class="col-md-7 mb-3">
                     <div class="form-label-group position-relative">
                         <input type="text" class="form-control" name="nickname" id="inputNickname"
-                               placeholder="닉네임" onkeyup="" maxlength="15" required>
+                               placeholder="닉네임" onkeyup="checkNickname(this)" maxlength="15" required>
                         <label for="inputNickname">닉네임</label>
                         <small class="ml-1 form-text text-muted">닉네임은 공백, 특수문자 없이 2~15자로 지정할 수 있습니다.</small>
                         <div id="nicknameInvalidTooltip" class="invalid-tooltip" style="width: 100%;">
@@ -75,9 +75,15 @@
             <div class="mb-3">
                 <div class="form-label-group position-relative">
                     <input type="email" class="form-control" name="email" id="inputEmail" maxlength="320" placeholder="이메일"
-                    required>
+                    onkeyup="checkEmail(this)" required>
                     <label for="inputEmail">이메일</label>
                     <small class="ml-1 form-text text-muted">이메일은 아이디/비밀번호 찾기에 사용됩니다. 사용하는 이메일로 적어주세요.</small>
+                    <div id="emailInvalidTooltip" class="invalid-tooltip" style="width: 100%;">
+                        RFC 2822 국제 표준에 맞는 이메일을 입력해주세요.
+                    </div>
+                    <div id="emailValidTooltip" class="valid-tooltip" style="width: 100%;">
+                        닉네임이 유효합니다.
+                    </div>
                 </div>
             </div>
 
