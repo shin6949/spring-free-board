@@ -29,11 +29,11 @@
 <!--        FROM users-->
 <!--    </select>-->
 
-<!--    <insert id="insertUserData" parameterType="User">-->
-<!--        insert into-->
-<!--            users(user_no, user_name, user_content, reg_date)-->
-<!--        values(#{userNo}, #{userName}, #{userContent}, #{regDate})-->
-<!--    </insert>-->
+    <insert id="insertUser" parameterType="me.cocoblue.springfreeboard.dto.User"
+            useGeneratedKeys="true" keyProperty="internalId">
+        insert into user(`username`, `name`, `password`, `role`, `email`)
+        values(#{username}, #{name}, #{password}, #{role}, #{email})
+    </insert>
 
 <!--    <update id="updateUserData" parameterType="User">-->
 <!--        update users-->

@@ -1,20 +1,25 @@
 package me.cocoblue.springfreeboard.dto;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.io.Serializable;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Setter
 public class UserDTO extends User implements Serializable {
     private String nickname;
-
-    public UserDTO(long internalId, String username, String name, String password, String email, String role) {
-        super(internalId, username, name, null, email, role);
-    }
+    private String passwordRe;
 
     public UserDTO(User user) {
         super(user.getInternalId(), user.getUsername(), user.getName(), null, user.getEmail(), user.getRole());
+    }
+
+    public User toUser() {
+        return new User(super.getInternalId(), super.getUsername(), super.getName(), super.getPassword(),
+                super.getEmail(), super.getRole());
     }
 }

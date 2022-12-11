@@ -12,7 +12,7 @@ CREATE TABLE `profile` (
     `user_id` bigint(20) NOT NULL,
     `nickname` varchar(15) NOT NULL UNIQUE COMMENT '닉네임 15자 제한',
     `profile_image` varchar(36) NULL DEFAULT NULL COMMENT 'UUID는 36글자로 구성',
-    FOREIGN KEY (`user_id`) REFERENCES `user` (`internal_id`)
+    FOREIGN KEY (`user_id`) REFERENCES `user` (`internal_id`) ON DELETE CASCADE
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 
 CREATE TABLE `article` (
@@ -22,7 +22,7 @@ CREATE TABLE `article` (
     `content` TEXT NOT NULL,
     `created_at` datetime NOT NULL DEFAULT now(),
     `view_count` int(11) NOT NULL DEFAULT 0 COMMENT '조회수',
-    FOREIGN KEY (`author_id`) REFERENCES `user` (`internal_id`)
+    FOREIGN KEY (`author_id`) REFERENCES `user` (`internal_id`) ON DELETE CASCADE
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 
 CREATE TABLE `comment` (
@@ -32,8 +32,8 @@ CREATE TABLE `comment` (
     `content` varchar(1000) NOT NULL,
     `is_reply` tinyint(1) NOT NULL DEFAULT 0 COMMENT '답글인지 아닌지',
     `created_at` datetime NOT NULL DEFAULT now(),
-    FOREIGN KEY (`author_id`) REFERENCES `user` (`internal_id`),
-    FOREIGN KEY (`article_id`) REFERENCES `article` (`id`)
+    FOREIGN KEY (`author_id`) REFERENCES `user` (`internal_id`) ON DELETE CASCADE,
+    FOREIGN KEY (`article_id`) REFERENCES `article` (`id`) ON DELETE CASCADE
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 
 CREATE TABLE `reply_index` (
@@ -41,8 +41,8 @@ CREATE TABLE `reply_index` (
    `root_comment_id` bigint(20) NOT NULL,
    `to_reply_comment_id` bigint(20) NOT NULL,
    `order` int(11) NOT NULL DEFAULT 1 COMMENT '순서',
-   FOREIGN KEY (`root_comment_id`) REFERENCES `comment` (`id`),
-   FOREIGN KEY (`to_reply_comment_id`) REFERENCES `comment` (`id`)
+   FOREIGN KEY (`root_comment_id`) REFERENCES `comment` (`id`) ON DELETE CASCADE,
+   FOREIGN KEY (`to_reply_comment_id`) REFERENCES `comment` (`id`) ON DELETE CASCADE
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 
 CREATE TABLE `attachment_index` (
@@ -50,23 +50,23 @@ CREATE TABLE `attachment_index` (
     `original_filename` varchar(256) NOT NULL COMMENT '파일 이름 최대 256자',
     `renamed_filename` varchar(36) NOT NULL COMMENT 'UUID는 36글자로 구성',
     `article_id` bigint(20) NOT NULL,
-    FOREIGN KEY (`article_id`) REFERENCES `article` (`id`)
+    FOREIGN KEY (`article_id`) REFERENCES `article` (`id`) ON DELETE CASCADE
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 
 CREATE TABLE `article_like` (
     `id` bigint(20) NOT NULL PRIMARY KEY auto_increment,
     `user_id` bigint(20) NOT NULL,
     `article_id` bigint(20) NOT NULL,
-    FOREIGN KEY (`user_id`) REFERENCES `user` (`internal_id`),
-    FOREIGN KEY (`article_id`) REFERENCES `article` (`id`)
+    FOREIGN KEY (`user_id`) REFERENCES `user` (`internal_id`) ON DELETE CASCADE,
+    FOREIGN KEY (`article_id`) REFERENCES `article` (`id`) ON DELETE CASCADE
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 
 CREATE TABLE `comment_like` (
     `id` bigint(20) NOT NULL PRIMARY KEY auto_increment,
     `user_id` bigint(20) NOT NULL,
     `comment_id` bigint(20) NOT NULL,
-    FOREIGN KEY (`user_id`) REFERENCES `user` (`internal_id`),
-    FOREIGN KEY (`comment_id`) REFERENCES `comment` (`id`)
+    FOREIGN KEY (`user_id`) REFERENCES `user` (`internal_id`) ON DELETE CASCADE,
+    FOREIGN KEY (`comment_id`) REFERENCES `comment` (`id`) ON DELETE CASCADE
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 
 CREATE VIEW `article_view` AS (

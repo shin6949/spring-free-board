@@ -9,7 +9,6 @@
     <title>회원 가입</title>
     <jsp:include page="/WEB-INF/jsp/include/bootstrap.jsp"/>
     <link href="${pageContext.request.contextPath}/static/css/common/floating_labels.css" rel="stylesheet">
-    <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/AccountValidation.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/Register.js"></script>
     <sec:csrfMetaTags/>
 </head>
@@ -28,7 +27,7 @@
                 <div class="col-md-7 mb-3">
                     <div class="form-label-group position-relative">
                         <input type="text" class="form-control" name="name" id="inputName" placeholder="이름"
-                               maxlength="10" onkeyup="checkName(this)" required autofocus>
+                               minlength="2" maxlength="10" onkeyup="checkName(this)" required autofocus>
                         <label for="inputName">이름</label>
                         <small class="ml-1 form-text text-muted">이름은 공백 없이 한글 2~10자로 지정할 수 있습니다.</small>
                         <div class="invalid-tooltip">
@@ -59,7 +58,7 @@
                 <div class="col-md-7 mb-3">
                     <div class="form-label-group position-relative">
                         <input type="text" class="form-control" name="nickname" id="inputNickname"
-                               placeholder="닉네임" onkeyup="checkNickname(this)" maxlength="15" required>
+                               placeholder="닉네임" onkeyup="checkNickname(this)" minlength="2" maxlength="15" required>
                         <label for="inputNickname">닉네임</label>
                         <small class="ml-1 form-text text-muted">닉네임은 공백, 특수문자 없이 2~15자로 지정할 수 있습니다.</small>
                         <div id="nicknameInvalidTooltip" class="invalid-tooltip" style="width: 100%;">
@@ -90,7 +89,7 @@
             <div class="mb-3">
                 <div class="form-label-group position-relative">
                     <input type="password" class="form-control" name="password" id="inputPassword" placeholder="비밀번호"
-                           onkeyup="checkPassword(this)" maxlength="30" required>
+                           onkeyup="checkPassword(this)" minlength="8" maxlength="30" required>
                     <label for="inputPassword">비밀번호</label>
                     <small class="ml-1 form-text text-muted">비밀번호는 공백 제외 영문, 숫자, 특수문자 조합으로 8~30자로 지정할 수 있습니다.</small>
                     <div class="invalid-tooltip">
@@ -102,7 +101,7 @@
             <div class="mb-3">
                 <div class="form-label-group position-relative">
                     <input type="password" class="form-control" name="passwordRe"
-                           id="inputPasswordRe" placeholder="비밀번호 확인" maxlength="30" onkeyup="checkPasswordRe(this)" required>
+                           id="inputPasswordRe" placeholder="비밀번호 확인" minlength="8" maxlength="30" onkeyup="checkPasswordRe(this)" required>
                     <label for="inputPasswordRe">비밀번호 확인</label>
                     <small class="ml-1 form-text text-muted">위에 기재한 비밀번호와 동일하게 입력하세요.</small>
                     <div class="invalid-tooltip">

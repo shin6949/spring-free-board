@@ -2,9 +2,12 @@ package me.cocoblue.springfreeboard.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import me.cocoblue.springfreeboard.mapper.ProfileMapper;
-import me.cocoblue.springfreeboard.mapper.UserMapper;
+import me.cocoblue.springfreeboard.dto.User;
+import me.cocoblue.springfreeboard.dto.UserDTO;
+import me.cocoblue.springfreeboard.service.ProfileService;
+import me.cocoblue.springfreeboard.service.UserService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -12,32 +15,46 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @Log4j2
 public class UserController {
-    private final UserMapper userMapper;
-    private final ProfileMapper profileMapper;
+    private final UserService userService;
+    private final ProfileService profileService;
 
     @GetMapping("/register")
     public String getRegister() {
         return "user/register";
     }
 
+    @PostMapping("/register")
+    public String postRegister(UserDTO userDTO, Model model) {
+        try {
+            long insertedInternalId = userService.insertUserAndReturnInternalId(userDTO.toUser());
+            profileService.insertProfile(insertedInternalId, userDTO.getNickname());
+
+            model.addAttribute("message", "회원가입에 성공하였습니다. 입력하신 정보로 로그인해주세요.");
+            model.addAttribute("url", "/login");
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("message", "회원가입에 실패하였습니다. 입력하신 정보를 다시 확인해주세요.");
+            model.addAttribute("url", "/user/register");
+        }
+
+        return "user/register_result";
+    }
+
     @PostMapping("/username_check")
     @ResponseBody
     public boolean getUsernameExists(@RequestParam(name = "username") String username) {
-        final int result = userMapper.countByUsername(username);
-        return result == 0;
+        return userService.isUsernameExists(username);
     }
 
     @PostMapping("/email_check")
     @ResponseBody
     public boolean getEmailExists(@RequestParam(name = "email") String email) {
-        final int result = userMapper.countByEmail(email);
-        return result == 0;
+        return userService.isEmailExists(email);
     }
 
     @PostMapping("/nickname_check")
     @ResponseBody
     public boolean getNicknameExists(@RequestParam(name = "nickname") String nickname) {
-        final int result = profileMapper.countByNickname(nickname);
-        return result == 0;
+        return profileService.isNicknameExists(nickname);
     }
 }

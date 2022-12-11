@@ -9,6 +9,12 @@
         WHERE nickname = #{nickname}
     </select>
 
+    <insert id="insertProfile" parameterType="me.cocoblue.springfreeboard.dto.ProfileDTO">
+        insert into
+            profile(user_id, nickname)
+        values(#{userId}, #{nickname})
+    </insert>
+
 <!--    <select id="selectAllUserData" resultType="User">-->
 <!--        SELECT user_no as userNo,-->
 <!--               user_name as userName,-->

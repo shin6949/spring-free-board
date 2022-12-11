@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!doctype html>
 <html lang="ko">
@@ -16,7 +17,6 @@
     <jsp:include page="/WEB-INF/jsp/include/bootstrap.jsp"/>
     <link href="${pageContext.request.contextPath}/static/css/login.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/static/css/common/floating_labels.css" rel="stylesheet">
-    <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/AccountValidation.js"></script>
     <sec:csrfMetaTags/>
 </head>
 <body>
@@ -34,20 +34,14 @@
 
     <div class="text-left">
         <div class="form-label-group position-relative">
-            <input type="text" name="inputId" id="inputId" onkeyup="checkUsername(this)"
+            <input type="text" name="inputId" id="inputId"
                    class="form-control" placeholder="아이디" maxlength='30' required autofocus>
             <label for="inputId">아이디</label>
-            <div class="invalid-tooltip">
-                아이디는 공백 없이 4~30자 영문 소문자와 숫자만 입력 가능합니다.
-            </div>
         </div>
         <div class="form-label-group position-relative">
             <input type="password" name="inputPassword" id="inputPassword" class="form-control"
-                   placeholder="Password" maxlength='30' onkeyup="checkPassword(this)" autocomplete="on" required>
+                   placeholder="Password" maxlength='30' autocomplete="on" required>
             <label for="inputPassword">비밀번호</label>
-            <div class="invalid-tooltip">
-                비밀번호는 공백 없이 8~30자 영문, 숫자, 특수문자만 입력 가능합니다.
-            </div>
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">로그인</button><br>
         <a href="/user/register"><button type="button" class="btn btn-lg btn-secondary btn-block">회원 가입</button></a>

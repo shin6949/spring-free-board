@@ -1,6 +1,44 @@
+function checkUsername(inputElement)  {
+    inputElement.classList.remove('is-invalid');
+    inputElement.classList.remove('is-valid');
+    inputElement.value = inputElement.value.replace(/\s/gi, "");
+
+    const regex = /^[a-z0-9]{4,30}$/;
+    if(regex.test(inputElement.value)) {
+        inputElement.className += ' is-valid';
+        return true;
+    } else {
+        inputElement.className += ' is-invalid';
+        return false;
+    }
+}
+
+function checkPassword(inputElement)  {
+    inputElement.classList.remove('is-invalid');
+    inputElement.classList.remove('is-valid');
+    inputElement.value = inputElement.value.replace(/\s/gi, "");
+
+    if(inputElement.value.length < 8) {
+        return;
+    }
+
+    const regex = /^[a-zA-Z\\d`~!@#$%^&*()-_=+]{8,30}$/;
+    if(regex.test(inputElement.value)) {
+        inputElement.className += ' is-valid';
+        return true;
+    } else {
+        inputElement.className += ' is-invalid';
+        return false;
+    }
+}
+
 const checkUsernameAtRegister = (inputElement) => {
     inputElement.classList.remove('is-invalid');
     inputElement.classList.remove('is-valid');
+
+    if(inputElement.value.length < 4) {
+        return;
+    }
 
     if(checkUsername(inputElement)) {
         // 규칙에 맞는 경우
@@ -67,13 +105,15 @@ const checkEmail = (inputElement) => {
         // 규칙에 맞는 경우
         inputElement.className += ' is-valid';
 
-        document.getElementById('usernameValidTooltip').innerText = "이메일이 유효합니다. ";
+        document.getElementById('emailValidTooltip').innerText = "이메일이 유효합니다. ";
         checkEmailExists(inputElement);
+        return true;
     } else {
         // 규칙을 어겨 사용 불가능한 경우
         inputElement.className += ' is-invalid';
 
-        document.getElementById('usernameInvalidTooltip').innerText = "이메일 규칙을 지켜주세요.";
+        document.getElementById('emailInvalidTooltip').innerText = "이메일 규칙을 지켜주세요.";
+        return false;
     }
 }
 
@@ -120,10 +160,15 @@ const checkEmailExists = (inputElement) => {
 }
 
 const checkNickname = (inputElement) => {
-    const regex = /[\\s{}[\]\/?.,;:|)*~`!^-_+┼<>@#$%&'"\\(=]{2,15}$/
-
     inputElement.classList.remove('is-invalid');
     inputElement.classList.remove('is-valid');
+    inputElement.value = inputElement.value.replace(/\s/gi, "");
+
+    if(inputElement.value.length < 2) {
+        return;
+    }
+
+    const regex = /[`~!@#$%^&*()\-_=+\\|[\]{};:'",.<>\/?]$/g
 
     if(!regex.test(inputElement.value)) {
         // 규칙에 맞는 경우
@@ -131,11 +176,13 @@ const checkNickname = (inputElement) => {
 
         document.getElementById('nicknameValidTooltip').innerText = "닉네임이 유효합니다. ";
         checkNicknameExists(inputElement);
+        return true;
     } else {
         // 규칙을 어겨 사용 불가능한 경우
         inputElement.className += ' is-invalid';
 
         document.getElementById('usernameInvalidTooltip').innerText = "닉네임 규칙을 지켜주세요.";
+        return false;
     }
 }
 
@@ -186,6 +233,10 @@ const checkName = (inputElement) => {
     inputElement.classList.remove('is-valid');
     inputElement.value = inputElement.value.replace(/\s/gi, "");
 
+    if(inputElement.value.length < 2) {
+        return;
+    }
+
     const regex = /^[ㄱ-ㅎ|가-힣]{2,10}$/;
 
     if(regex.test(inputElement.value)) {
@@ -220,6 +271,14 @@ const registerSubmitCheck = (formElement) => {
     }
 
     if(!checkUsername(formElement['username'])) {
+        return false;
+    }
+
+    if(!checkNickname(formElement['nickname'])) {
+        return false;
+    }
+
+    if(!checkEmail(formElement['email'])) {
         return false;
     }
 
