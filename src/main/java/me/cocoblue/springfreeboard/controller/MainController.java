@@ -1,7 +1,7 @@
 package me.cocoblue.springfreeboard.controller;
 
 import lombok.extern.log4j.Log4j2;
-import me.cocoblue.springfreeboard.dto.UserContext;
+import me.cocoblue.springfreeboard.dto.CustomUserDetails;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("")
 public class MainController {
-    @GetMapping({"/main", "/success"})
-    public String getMain(@AuthenticationPrincipal UserContext userContext) {
-        log.info("CURRENT USER: " + userContext);
+    @GetMapping({"/main", "/success", "/"})
+    public String getMain(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
+        log.info("CURRENT USER: " + customUserDetails.getProfileDTO());
 
         return "main";
     }

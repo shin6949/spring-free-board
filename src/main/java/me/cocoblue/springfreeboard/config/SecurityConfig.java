@@ -54,7 +54,7 @@ public class SecurityConfig {
                 .and()
                 .logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/main")
+                .logoutSuccessUrl("/")
                 .and()
                 .httpBasic(withDefaults());
         return http.build();

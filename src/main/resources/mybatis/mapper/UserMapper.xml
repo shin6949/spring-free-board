@@ -4,20 +4,17 @@
 
 <mapper namespace="me.cocoblue.springfreeboard.mapper.UserMapper">
     <select id="findByUsername" parameterType="String" resultType="me.cocoblue.springfreeboard.dto.User">
-        SELECT *
-        FROM user
+        SELECT * FROM user
         WHERE username = #{username}
     </select>
 
     <select id="countByUsername" parameterType="String" resultType="int">
-        SELECT count(*)
-        FROM user
+        SELECT count(*) FROM user
         WHERE username = #{username}
     </select>
 
     <select id="countByEmail" parameterType="String" resultType="int">
-        SELECT count(*)
-        FROM user
+        SELECT count(*) FROM user
         WHERE email = #{email}
     </select>
 
@@ -31,8 +28,8 @@
 
     <insert id="insertUser" parameterType="me.cocoblue.springfreeboard.dto.User"
             useGeneratedKeys="true" keyProperty="internalId">
-        insert into user(`username`, `name`, `password`, `role`, `email`)
-        values(#{username}, #{name}, #{password}, #{role}, #{email})
+        INSERT INTO user(`username`, `name`, `password`, `role`, `email`)
+        VALUES(#{username}, #{name}, #{password}, #{role}, #{email})
     </insert>
 
 <!--    <update id="updateUserData" parameterType="User">-->

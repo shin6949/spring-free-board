@@ -4,18 +4,21 @@
 
 <mapper namespace="me.cocoblue.springfreeboard.mapper.ProfileMapper">
     <select id="countByNickname" parameterType="String" resultType="int">
-        SELECT count(*)
-        FROM profile
+        SELECT count(*) FROM profile
         WHERE nickname = #{nickname}
     </select>
 
     <insert id="insertProfile" parameterType="me.cocoblue.springfreeboard.dto.ProfileDTO">
-        insert into
-            profile(user_id, nickname)
-        values(#{userId}, #{nickname})
+        INSERT INTO profile(user_id, nickname) VALUES (#{userId}, #{nickname})
     </insert>
 
-<!--    <select id="selectAllUserData" resultType="User">-->
+    <select id="getProfileByUserId" resultType="me.cocoblue.springfreeboard.dto.ProfileDTO">
+        SELECT * FROM profile
+        WHERE user_id = #{userId}
+    </select>
+
+
+    <!--    <select id="selectAllUserData" resultType="User">-->
 <!--        SELECT user_no as userNo,-->
 <!--               user_name as userName,-->
 <!--               user_content as userContent,-->

@@ -8,4 +8,5 @@ import org.apache.ibatis.annotations.Param;
 public interface ProfileMapper {
     int countByNickname(@Param("nickname") String nickname);
     long insertProfile(ProfileDTO profileDTO);
+    ProfileDTO getProfileByUserId(@Param("userId") long userId);
 }
