@@ -28,6 +28,8 @@ dependencies {
     implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
     implementation 'org.springframework.security:spring-security-taglibs'
     implementation 'javax.servlet:jstl'
+    // https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api
+    compileOnly 'jakarta.servlet:jakarta.servlet-api'
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
     implementation 'com.mysql:mysql-connector-j:8.0.31'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'

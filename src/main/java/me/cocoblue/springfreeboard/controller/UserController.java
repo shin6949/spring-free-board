@@ -2,7 +2,6 @@ package me.cocoblue.springfreeboard.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import me.cocoblue.springfreeboard.dto.User;
 import me.cocoblue.springfreeboard.dto.UserDTO;
 import me.cocoblue.springfreeboard.service.ProfileService;
 import me.cocoblue.springfreeboard.service.UserService;

@@ -113,7 +113,9 @@
             <hr class="mb-4">
             <div>
                 <button class="btn btn-primary btn-lg" onsubmit="return registerSubmitCheck(this)" type="submit">회원 가입</button>
-                <button class="btn btn-secondary btn-lg" data-toggle="modal" data-target="#cancelModal">취소</button>
+                <button type="button" class="btn btn-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#cancelModal">
+                    취소
+                </button>
             </div>
         </form:form>
     </div>
@@ -121,7 +123,7 @@
 
 <div class="container">
     <!-- Modal -->
-    <div style="margin-top: 20%" class="modal fade" id="cancelModal" tabindex="-1" role="dialog">
+    <div style="margin-top: 20%" id="cancelModal" class="modal fade"  tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -131,12 +133,13 @@
                     취소하면 입력한 데이터를 모두 잃습니다. 계속 하시겠습니까?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">계속 진행</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">계속 진행</button>
                     <a href="/main"><button type="button" class="btn btn-danger">취소하고 이동</button></a>
                 </div>
             </div>
         </div>
-    </div>
 </div>
+</div>
+
 </body>
 </html>

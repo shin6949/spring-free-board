@@ -7,12 +7,12 @@
 <html lang="ko">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.101.0">
+    <meta name="generator" content="Hugo 0.104.2">
     <title>로그인</title>
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/sign-in/">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sign-in/">
     <!-- Bootstrap core CSS -->
     <jsp:include page="/WEB-INF/jsp/include/bootstrap.jsp"/>
     <link href="${pageContext.request.contextPath}/static/css/login.css" rel="stylesheet">
@@ -32,7 +32,7 @@
             </div>
         </c:if>
 
-    <div class="text-left">
+    <div class="text-start">
         <div class="form-label-group position-relative">
             <input type="text" name="inputId" id="inputId"
                    class="form-control" placeholder="아이디" maxlength='30' required autofocus>
@@ -43,8 +43,8 @@
                    placeholder="Password" maxlength='30' autocomplete="on" required>
             <label for="inputPassword">비밀번호</label>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">로그인</button><br>
-        <a href="/user/register"><button type="button" class="btn btn-lg btn-secondary btn-block">회원 가입</button></a>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">로그인</button><br><br>
+        <a href="${pageContext.request.contextPath}/user/register"><button type="button" class="w-100 btn btn-lg btn-secondary">회원 가입</button></a>
         <p class="mt-5 mb-3 text-muted">&copy; 2022-2023</p>
     </div>
     </form:form>
