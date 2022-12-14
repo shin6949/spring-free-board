@@ -56,6 +56,9 @@ public class SecurityConfig {
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/")
                 .and()
+                .headers()
+                .frameOptions().sameOrigin()
+                .and()
                 .httpBasic(withDefaults());
         return http.build();
     }
