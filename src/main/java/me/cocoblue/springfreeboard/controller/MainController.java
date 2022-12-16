@@ -20,12 +20,8 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 @RequestMapping("")
 public class MainController {
-    @GetMapping({"/main", "/success", "/"})
-    public String getMain(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
-        if(customUserDetails != null) {
-            log.info("CURRENT USER: " + customUserDetails.getProfileDTO());
-        }
-
+    @GetMapping({"/"})
+    public String getMain() {
         return "main";
     }
 

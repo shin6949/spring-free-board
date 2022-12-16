@@ -24,7 +24,7 @@
 	var welUploadInputBox = $Element("uploadInputBox");
 	var oNavigator = jindo.$Agent().navigator();
 	
-	//마크업-공통 
+	//마크업-공통
 	var welBtnConfirm = $Element("btn_confirm");				//확인 버튼
 	var welBtnCancel= $Element("btn_cancel");				//취소 버튼
 	
@@ -334,7 +334,7 @@
     	var tempFile,
     		sUploadURL;
     	
-    	sUploadURL= 'file_uploader_html5.php'; 	//upload URL
+    	sUploadURL= '/attachment/image_upload'; 	//upload URL
     	
     	//파일을 하나씩 보내고, 결과를 받음.
     	for(var j=0, k=0; j < nImageInfoCnt; j++) {
@@ -356,7 +356,7 @@
 			method : "post",
 			onload : function(res){ // 요청이 완료되면 실행될 콜백 함수
 				var sResString = res._response.responseText;
-				if (res.readyState() == 4) {
+				if (res.readyState() === 4) {
 					if(sResString.indexOf("NOTALLOW_") > -1){
 						var sFileName = sResString.replace("NOTALLOW_", "");
 						alert("이미지 파일(jpg,gif,png,bmp)만 업로드 하실 수 있습니다. ("+sFileName+")");
@@ -388,7 +388,7 @@
  	    	}
  			aTemp = sResString.split("&");
 	    	for (var i = 0; i < aTemp.length ; i++){
-	    		if( !!aTemp[i] && aTemp[i] != "" && aTemp[i].indexOf("=") > 0){
+	    		if( !!aTemp[i] && aTemp[i] !== "" && aTemp[i].indexOf("=") > 0){
 	    			aSubTemp = aTemp[i].split("=");
 	    			htTemp[aSubTemp[0]] = aSubTemp[1];
 	    		}
@@ -398,7 +398,7 @@
  		aResultleng = aResult.length;
     	aResult[aResultleng] = htTemp;
     	
-    	if(aResult.length == nImageFileCount){
+    	if(aResult.length === nImageFileCount){
     		setPhotoToEditor(aResult); 
     		aResult = null;
     		window.close();
@@ -477,9 +477,13 @@
  	 * jindo에 파일 업로드 사용.(iframe에 Form을 Submit하여 리프레시없이 파일을 업로드하는 컴포넌트)
  	 */
  	function callFileUploader (){
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+		console.log("csrf token: " + token);
+
  		oFileUploader = new jindo.FileUploader(jindo.$("uploadInputBox"),{
- 			sUrl  : location.href.replace(/\/[^\/]*$/, '') + '/file_uploader.php',	//샘플 URL입니다.
- 	        sCallback : location.href.replace(/\/[^\/]*$/, '') + '/callback.html',	//업로드 이후에 iframe이 redirect될 콜백페이지의 주소
+ 			sUrl  : location.href.replace(/\/[^\/]*$/, '') + '/attachment/image_upload',
+ 	        sCallback : location.href.replace(/\/[^\/]*$/, '') + '/static/smarteditor/sample/photo_uploader/callback.html',	//업로드 이후에 iframe이 redirect될 콜백페이지의 주소
  	    	sFiletype : "*.jpg;*.png;*.bmp;*.gif",						//허용할 파일의 형식. ex) "*", "*.*", "*.jpg", 구분자(;)	
  	    	sMsgNotAllowedExt : 'JPG, GIF, PNG, BMP 확장자만 가능합니다',	//허용할 파일의 형식이 아닌경우에 띄워주는 경고창의 문구
  	    	bAutoUpload : false,									 	//파일이 선택됨과 동시에 자동으로 업로드를 수행할지 여부 (upload 메소드 수행)

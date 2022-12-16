@@ -8,6 +8,7 @@
     <jsp:include page="/WEB-INF/jsp/include/bootstrap.jsp"/>
     <script type="text/javascript" src="<c:url value='/static/smarteditor/js/HuskyEZCreator.js'/>" charset="utf-8"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/Write.js"></script>
+    <sec:csrfMetaTags/>
 </head>
 <script>
 
@@ -27,11 +28,11 @@
         <div class="mb-2" id="smarteditor">
             <label for="editorTxt" class="form-label">내용</label>
             <textarea class="form-control" name="content" id="editorTxt" rows="20" cols="10" placeholder="내용을 입력해주세요">
-
             </textarea>
         </div>
         <div class="text-end">
             <button class="btn btn-primary mb-3" type="submit" >업로드</button>
+            <button class="btn btn-secondary mb-3" type="button" onclick="addExamplePhoto()">테스트</button>
         </div>
 
     </form>
