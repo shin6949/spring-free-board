@@ -14,6 +14,6 @@ public class CommentDTO {
     private long authorId;
     private long articleId;
     private String content;
-    private boolean isReply;
     private LocalDateTime createdAt;
+    private long rootCommentId;
 }

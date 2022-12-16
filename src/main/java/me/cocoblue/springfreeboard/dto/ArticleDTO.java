@@ -13,6 +13,7 @@ public class ArticleDTO {
     private long id;
     private long authorId;
     private String title;
+    private String content;
     private LocalDateTime createdAt;
     private int viewCount;
 }

@@ -13,16 +13,15 @@ $(document).ready(function() {
     smartEditor()
 })
 
-submitPost = function() {
+const submitPost = (inputElement) => {
     oEditors.getById["editorTxt"].exec("UPDATE_CONTENTS_FIELD", []);
     let content = document.getElementById("editorTxt").value;
-    console.log(content);
 
     if(content === '<p>&nbsp;</p>') {
         alert("내용을 입력해주세요.");
         oEditors.getById["editorTxt"].exec("FOCUS");
-        return
-    } else {
-        console.log(content)
+        return false;
     }
+
+    return true;
 }

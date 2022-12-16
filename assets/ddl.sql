@@ -5,7 +5,7 @@ CREATE TABLE `user` (
     `password` varchar(256) NOT NULL COMMENT 'SHA256',
     `email` varchar(320) NOT NULL COMMENT '이메일 ID 부분은 최대 64자 + @ + 도메인은 255자까지 320자',
     `role` varchar(15) NOT NULL COMMENT 'For Spring Security'
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE `profile` (
     `id` bigint(20) NOT NULL PRIMARY KEY auto_increment,
@@ -13,7 +13,7 @@ CREATE TABLE `profile` (
     `nickname` varchar(15) NOT NULL UNIQUE COMMENT '닉네임 15자 제한',
     `profile_image` varchar(36) NULL DEFAULT NULL COMMENT 'UUID는 36글자로 구성',
     FOREIGN KEY (`user_id`) REFERENCES `user` (`internal_id`) ON DELETE CASCADE
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE `article` (
     `id` bigint(20) NOT NULL PRIMARY KEY auto_increment,
@@ -23,27 +23,19 @@ CREATE TABLE `article` (
     `created_at` datetime NOT NULL DEFAULT now(),
     `view_count` int(11) NOT NULL DEFAULT 0 COMMENT '조회수',
     FOREIGN KEY (`author_id`) REFERENCES `user` (`internal_id`) ON DELETE CASCADE
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE `comment` (
     `id` bigint(20) NOT NULL PRIMARY KEY auto_increment,
     `author_id` bigint(20) NOT NULL,
     `article_id` bigint(20) NOT NULL,
     `content` varchar(1000) NOT NULL,
-    `is_reply` tinyint(1) NOT NULL DEFAULT 0 COMMENT '답글인지 아닌지',
     `created_at` datetime NOT NULL DEFAULT now(),
+    `root_comment_id` bigint(20) DEFAULT NULL,
     FOREIGN KEY (`author_id`) REFERENCES `user` (`internal_id`) ON DELETE CASCADE,
-    FOREIGN KEY (`article_id`) REFERENCES `article` (`id`) ON DELETE CASCADE
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-
-CREATE TABLE `reply_index` (
-   `id` bigint(20) NOT NULL PRIMARY KEY auto_increment,
-   `root_comment_id` bigint(20) NOT NULL,
-   `to_reply_comment_id` bigint(20) NOT NULL,
-   `order` int(11) NOT NULL DEFAULT 1 COMMENT '순서',
-   FOREIGN KEY (`root_comment_id`) REFERENCES `comment` (`id`) ON DELETE CASCADE,
-   FOREIGN KEY (`to_reply_comment_id`) REFERENCES `comment` (`id`) ON DELETE CASCADE
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+    FOREIGN KEY (`article_id`) REFERENCES `article` (`id`) ON DELETE CASCADE,
+    FOREIGN KEY (`root_comment_id`) REFERENCES `comment` (`id`) ON DELETE CASCADE
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE `attachment_index` (
     `id` bigint(20) NOT NULL PRIMARY KEY auto_increment,
@@ -51,7 +43,7 @@ CREATE TABLE `attachment_index` (
     `renamed_filename` varchar(36) NOT NULL COMMENT 'UUID는 36글자로 구성',
     `article_id` bigint(20) NOT NULL,
     FOREIGN KEY (`article_id`) REFERENCES `article` (`id`) ON DELETE CASCADE
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE `article_like` (
     `id` bigint(20) NOT NULL PRIMARY KEY auto_increment,
@@ -59,7 +51,7 @@ CREATE TABLE `article_like` (
     `article_id` bigint(20) NOT NULL,
     FOREIGN KEY (`user_id`) REFERENCES `user` (`internal_id`) ON DELETE CASCADE,
     FOREIGN KEY (`article_id`) REFERENCES `article` (`id`) ON DELETE CASCADE
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE `comment_like` (
     `id` bigint(20) NOT NULL PRIMARY KEY auto_increment,
@@ -67,7 +59,7 @@ CREATE TABLE `comment_like` (
     `comment_id` bigint(20) NOT NULL,
     FOREIGN KEY (`user_id`) REFERENCES `user` (`internal_id`) ON DELETE CASCADE,
     FOREIGN KEY (`comment_id`) REFERENCES `comment` (`id`) ON DELETE CASCADE
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE VIEW `article_view` AS (
     SELECT a.id AS `id`, a.content AS `content`, a.created_at AS `created_at`,
@@ -79,7 +71,7 @@ CREATE VIEW `article_view` AS (
 );
 
 CREATE VIEW `comment_view` AS (
-    SELECT c.id AS `id`, c.content AS `content`, c.is_reply AS `is_reply`,
+    SELECT c.id AS `id`, c.content AS `content`,
            c.created_at AS `created_at`, c.author_id AS `author_id`, p.nickname AS `author_nickname`,
            (SELECT count(*) FROM comment_like WHERE comment_like.comment_id = c.id) AS `like_count`
     FROM comment c

@@ -2,19 +2,14 @@ package me.cocoblue.springfreeboard.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CommentViewDTO {
-    private long id;
-    private String content;
-    private boolean isReply;
-    private LocalDateTime createdAt;
-    private long authorId;
+public class CommentViewDTO extends CommentDTO {
     private String authorNickname;
     private int likeCount;
 }
