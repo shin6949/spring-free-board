@@ -345,22 +345,25 @@
 	    			callAjaxForHTML5(tempFile,sUploadURL);
 	    			k += 1;
 	    		}
-	    	}catch(e){}
+	    	} catch(e){
+				console.error(e);
+			}
     		tempFile = null;
     	}
 	}
     
-    function callAjaxForHTML5 (tempFile, sUploadURL){
+    function callAjaxForHTML5 (tempFile, sUploadURL) {
     	var oAjax = jindo.$Ajax(sUploadURL, {
 			type: 'xhr',
 			method : "post",
-			onload : function(res){ // 요청이 완료되면 실행될 콜백 함수
+			contentType: false,
+			onload : function(res) {
 				var sResString = res._response.responseText;
 				if (res.readyState() === 4) {
 					if(sResString.indexOf("NOTALLOW_") > -1){
 						var sFileName = sResString.replace("NOTALLOW_", "");
 						alert("이미지 파일(jpg,gif,png,bmp)만 업로드 하실 수 있습니다. ("+sFileName+")");
-					}else{
+					} else{
 						//성공 시에  responseText를 가지고 array로 만드는 부분.
 						makeArrayFromString(res._response.responseText);
 					}
@@ -369,10 +372,9 @@
 			timeout : 3,
 			onerror :  jindo.$Fn(onAjaxError, this).bind()
 		});
-		oAjax.header("contentType","multipart/form-data");
-		oAjax.header("file-name",encodeURIComponent(tempFile.name));
-		oAjax.header("file-size",tempFile.size);
-		oAjax.header("file-Type",tempFile.type);
+		oAjax.header("file-name", encodeURIComponent(tempFile.name));
+		oAjax.header("file-size", tempFile.size);
+		oAjax.header("file-Type", tempFile.type);
 		oAjax.request(tempFile);
     }
     
@@ -457,7 +459,8 @@
 	 * Ajax 통신 시 error가 발생할 때 처리하는 함수입니다.
 	 * @return
 	 */
-	function onAjaxError (){
+	function onAjaxError (e){
+		console.log(e);
 		alert("[가이드]사진 업로더할 서버URL셋팅이 필요합니다.-onAjaxError");
 	}
 

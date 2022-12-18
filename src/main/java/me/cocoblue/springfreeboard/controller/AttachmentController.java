@@ -4,7 +4,10 @@ import com.mysql.cj.util.StringUtils;
 import lombok.extern.log4j.Log4j2;
 import me.cocoblue.springfreeboard.dto.AttachmentDTO;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,12 +25,13 @@ import java.util.UUID;
 @Log4j2
 @RequestMapping("/attachment")
 public class AttachmentController {
-    @Value("${upload.path}")
-    private String uploadPath;
-
-    @PostMapping(value = "/image_upload")
+    @GetMapping
+    public String getImageUpload() {
+        return "/article/photoUploader";
+    }
+    @PostMapping(value = "/image_upload", produces = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ResponseBody
-    public void imageUpload(HttpServletRequest request, HttpServletResponse response){
+    public void PostImageUpload(HttpServletRequest request, HttpServletResponse response) {
         // 출처: https://fvor001.tistory.com/11
         // 좀 더 분석이 필요함. (왜 에러가 안 났는지 등)
         try {

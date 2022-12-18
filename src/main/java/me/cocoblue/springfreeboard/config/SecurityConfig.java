@@ -39,9 +39,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
+//                .csrf().disable()
                 .authorizeHttpRequests()
-                .antMatchers( "/login", "/static/**","/", "/user/**").permitAll()
+                .antMatchers( "/login", "/static/**","/", "/user/**", "/attachment/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
