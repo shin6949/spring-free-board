@@ -353,6 +353,9 @@
 	}
     
     function callAjaxForHTML5 (tempFile, sUploadURL) {
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+
     	var oAjax = jindo.$Ajax(sUploadURL, {
 			type: 'xhr',
 			method : "post",
@@ -375,6 +378,7 @@
 		oAjax.header("file-name", encodeURIComponent(tempFile.name));
 		oAjax.header("file-size", tempFile.size);
 		oAjax.header("file-Type", tempFile.type);
+		oAjax.header(header, token);
 		oAjax.request(tempFile);
     }
     
